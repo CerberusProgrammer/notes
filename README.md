@@ -4,9 +4,9 @@ Note fast adder.
 
 ## To Do
 
-- Add notes.
-- Edit notes.
-- Delete notes.
+- ~~Add notes.~~
+- ~~Edit notes.~~
+- ~~Delete notes.~~
 - Personalize icon notes.
-- Export notes.
-- Import notes.
+- ~~Export notes.~~
+- ~~Import notes.~~

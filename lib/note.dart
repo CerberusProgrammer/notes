@@ -17,7 +17,7 @@ class Note {
     );
   }
 
-  Map<String, String> toJson() => {
+  Map<dynamic, dynamic> toJson() => {
         'title': title,
         'content': content,
       };

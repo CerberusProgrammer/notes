@@ -41,36 +41,30 @@ class _Home extends State<Home> {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Edit'),
+              title: TextFormField(
+                controller: titleEditingController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Title',
+                ),
+              ),
             ),
             body: Center(
                 child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: titleEditingController,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            labelText: 'Title',
-                          ),
-                        ),
-                        TextField(
-                          controller: contentEditingController,
-                          autofocus: true,
-                          minLines: 10,
-                          maxLines: 20,
-                          maxLength: 1000,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1,
-                                      color:
-                                          Color.fromARGB(255, 116, 116, 116)))),
-                        ),
-                      ],
-                    ))),
+              padding: const EdgeInsets.all(10),
+              child: Center(
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 80, right: 10, left: 18),
+                    child: TextFormField(
+                      controller: contentEditingController,
+                      autofocus: true,
+                      expands: true,
+                      minLines: null,
+                      maxLines: null,
+                    )),
+              ),
+            )),
             floatingActionButton: FloatingActionButton(
               tooltip: 'Confirm',
               child: const Icon(Icons.check),
@@ -114,9 +108,10 @@ class _Home extends State<Home> {
           return Scaffold(
             floatingActionButton: FloatingActionButton(
               onPressed: () {
+                String title = titleEditingController.text;
                 String content = contentEditingController.text;
 
-                if (content.isNotEmpty) {
+                if (content.isNotEmpty || title.isNotEmpty) {
                   String title = titleEditingController.text;
                   createNote(title, content);
                 }
@@ -130,35 +125,27 @@ class _Home extends State<Home> {
               child: const Icon(Icons.check),
             ),
             appBar: AppBar(
-              title: const Text('Create'),
+              title: TextFormField(
+                controller: titleEditingController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Title',
+                ),
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(10),
               child: Center(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: titleEditingController,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        labelText: 'Title',
-                      ),
-                    ),
-                    TextField(
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 80, right: 10, left: 18),
+                    child: TextFormField(
                       controller: contentEditingController,
                       autofocus: true,
-                      minLines: 10,
-                      maxLines: 20,
-                      maxLength: 1000,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1,
-                                  color: Color.fromARGB(255, 116, 116, 116)))),
-                    ),
-                  ],
-                ),
+                      expands: true,
+                      minLines: null,
+                      maxLines: null,
+                    )),
               ),
             ),
           );
@@ -179,6 +166,7 @@ class _Home extends State<Home> {
       body: Padding(
           padding: const EdgeInsets.all(5),
           child: ListView.builder(
+              padding: const EdgeInsets.all(10),
               itemCount: notes.length,
               itemBuilder: (BuildContext context, int index) {
                 return Card(
@@ -186,6 +174,9 @@ class _Home extends State<Home> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (BuildContext context) {
+                      TextEditingController t = TextEditingController();
+                      t.text = notes[index].content;
+
                       return Scaffold(
                         appBar: AppBar(
                           title: Text(notes[index].title),
@@ -210,8 +201,15 @@ class _Home extends State<Home> {
                         ),
                         body: Center(
                             child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(notes[index].content),
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 80, right: 10, left: 18),
+                          child: TextFormField(
+                            expands: true,
+                            minLines: null,
+                            maxLines: null,
+                            readOnly: true,
+                            controller: t,
+                          ),
                         )),
                         floatingActionButton: edit(index, notes[index].title,
                             notes[index].content, context),
@@ -219,7 +217,9 @@ class _Home extends State<Home> {
                     }));
                   },
                   title: Text(notes[index].title),
-                  subtitle: Text(notes[index].content),
+                  subtitle: notes[index].content.length > 300
+                      ? Text('${notes[index].content.substring(0, 300)}...')
+                      : Text(notes[index].content),
                 ));
               })),
       floatingActionButton: add(),

@@ -36,17 +36,17 @@ class Data {
       File('notes.json').create();
     }
 
-    print(jsonEncode(notes));
+    // print(jsonEncode(notes));
 
-    String allNotes = '';
+    // String allNotes = '';
 
-    for (var i = 0; i < notes.length; i++) {
-      allNotes += '{${notes[i].toString()}}';
-      if (!(i == notes.length - 1)) {
-        allNotes += ',';
-      }
-    }
+    // for (var i = 0; i < notes.length; i++) {
+    //   allNotes += '{${notes[i].toString()}}';
+    //   if (!(i == notes.length - 1)) {
+    //     allNotes += ',';
+    //   }
+    // }
 
-    file.writeAsStringSync(jsonEncode(allNotes));
+    file.writeAsStringSync(jsonEncode(notes));
   }
 }
