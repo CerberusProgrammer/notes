@@ -5,7 +5,7 @@ import 'home.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(primaryColor: Colors.amber),
+    theme: ThemeData.dark(useMaterial3: true),
     home: const Home(),
   ));
 }
