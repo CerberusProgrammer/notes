@@ -39,8 +39,12 @@ class _Home extends State<Home> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
                         return Scaffold(
-                            appBar: AppBar(title: Text(notes[index].title)),
-                            body: Center(child: Text(notes[index].content)),
+                            appBar: AppBar(
+                              title: Text(notes[index].title),
+                            ),
+                            body: Center(
+                              child: Text(notes[index].content),
+                            ),
                             floatingActionButton: FloatingActionButton(
                               child: const Icon(Icons.edit),
                               onPressed: () {},
@@ -90,7 +94,6 @@ class _Home extends State<Home> {
                       TextField(
                         controller: contentEditingController,
                         autofocus: true,
-                        keyboardType: TextInputType.multiline,
                         minLines: 10,
                         maxLines: 20,
                         maxLength: 1000,
