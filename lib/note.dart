@@ -10,15 +10,20 @@ class Note {
   setContent(String content) => this.content = content;
   String getContent() => content;
 
-  factory Note.fromJSON(dynamic json) {
+  factory Note.fromJson(dynamic json) {
     return Note(
-      json["title"] as String,
-      json["content"] as String,
+      json['title'] as String,
+      json['content'] as String,
     );
   }
 
-  Map toJSON() => {
+  Map<String, String> toJson() => {
         'title': title,
         'content': content,
       };
+
+  @override
+  String toString() {
+    return '"title": $title, "content": $content';
+  }
 }
